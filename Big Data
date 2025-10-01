@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comparação: Banco de Dados Relacional vs NoSQL</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f5f7fa;
+            color: #333;
+        }
+        header {
+            background: linear-gradient(135deg, #0066cc, #00bfa6);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+        header h1 {
+            margin: 0;
+        }
+        nav {
+            margin-top: 1rem;
+        }
+        nav a {
+            color: white;
+            margin: 0 1rem;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        section {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #0066cc;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .card {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            border-left: 5px solid #00bfa6;
+            background: #f9fdfc;
+            border-radius: 8px;
+        }
+        .comparacao table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        .comparacao th, .comparacao td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+        .comparacao th {
+            background: #00bfa6;
+            color: white;
+        }
+        .comparacao tr:nth-child(even) {
+            background: #f2f9f8;
+        }
+        .principais-diferencas {
+            background: #e6f7ff;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-top: 2rem;
+        }
+        .principais-diferencas ul {
+            list-style: none;
+            padding: 0;
+        }
+        .principais-diferencas li {
+            margin: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background: #0066cc;
+            color: white;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><i class="fa-solid fa-database"></i> Banco de Dados Relacional vs <i class="fa-solid fa-cloud"></i> NoSQL</h1>
+        <nav>
+            <a href="#relacional">Relacional</a>
+            <a href="#nosql">NoSQL</a>
+            <a href="#comparacao">Comparação</a>
+            <a href="#diferencas">Diferenças</a>
+        </nav>
+    </header>
+
+    <section id="relacional">
+        <h2><i class="fa-solid fa-database"></i> Banco de Dados Relacional (RDBMS)</h2>
+        <div class="card">
+            <p>Organiza e armazena informações em <b>tabelas</b> (linhas e colunas) com esquema rígido e relações usando chaves primárias e estrangeiras. Utiliza <b>SQL</b> para consultas. </p>
+            <p>Características principais: suporte a <b>ACID</b>, consistência imediata, ideal para sistemas financeiros e aplicações com dados fortemente relacionados.</p>
+            <p><b>Exemplos:</b> MySQL, PostgreSQL, SQL Server.</p>
+        </div>
+    </section>
+
+    <section id="nosql">
+        <h2><i class="fa-solid fa-cloud"></i> Banco de Dados NoSQL</h2>
+        <div class="card">
+            <p>Não utiliza esquema fixo, permitindo armazenar dados <b>não estruturados ou semi-estruturados</b>. Suporta modelos como documento, chave-valor, grafo, colunar e em memória.</p>
+            <p>Focado em <b>escalabilidade horizontal</b> e <b>alta disponibilidade</b>, com consistência eventual. Indicado para grandes volumes de dados e sistemas distribuídos.</p>
+            <p><b>Exemplos:</b> MongoDB, Cassandra, Redis.</p>
+        </div>
+    </section>
+
+    <section id="comparacao" class="comparacao">
+        <h2><i class="fa-solid fa-scale-balanced"></i> Comparação Rápida</h2>
+        <table>
+            <tr>
+                <th>Característica</th>
+                <th>RDBMS</th>
+                <th>NoSQL</th>
+            </tr>
+            <tr>
+                <td>Estrutura de Dados</td>
+                <td>Tabelas com esquema rígido</td>
+                <td>Modelos variados; sem esquema fixo</td>
+            </tr>
+            <tr>
+                <td>Consistência</td>
+                <td>Alta (ACID)</td>
+                <td>Eventual em geral</td>
+            </tr>
+            <tr>
+                <td>Escalabilidade</td>
+                <td>Vertical (tradicional)</td>
+                <td>Horizontal (natural)</td>
+            </tr>
+            <tr>
+                <td>Uso ideal</td>
+                <td>Transações complexas; dados relacionados</td>
+                <td>Grandes volumes; dados não estruturados</td>
+            </tr>
+            <tr>
+                <td>Linguagem de Consulta</td>
+                <td>SQL</td>
+                <td>Variada (APIs, JSON, etc.)</td>
+            </tr>
+            <tr>
+                <td>Flexibilidade de esquema</td>
+                <td>Baixa</td>
+                <td>Alta</td>
+            </tr>
+        </table>
+    </section>
+
+    <section id="diferencas" class="principais-diferencas">
+        <h2><i class="fa-solid fa-lightbulb"></i> Principais Diferenças</h2>
+        <ul>
+            <li><i class="fa-solid fa-table"></i> RDBMS usa tabelas rígidas, NoSQL usa modelos flexíveis.</li>
+            <li><i class="fa-solid fa-lock"></i> RDBMS garante alta consistência (ACID), NoSQL trabalha com consistência eventual.</li>
+            <li><i class="fa-solid fa-chart-line"></i> RDBMS escala verticalmente; NoSQL escala horizontalmente.</li>
+            <li><i class="fa-solid fa-briefcase"></i> RDBMS é ideal para bancos e sistemas críticos; NoSQL para big data e aplicações web/móveis.</li>
+        </ul>
+    </section>
+
+    <footer>
+        <p>Projeto de Comparação: RDBMS vs NoSQL - 2025</p>
+    </footer>
+</body>
+</html>
