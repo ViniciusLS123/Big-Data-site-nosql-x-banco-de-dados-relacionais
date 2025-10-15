@@ -1,2 +1,2 @@
 # Big-Data-site-nosql-x-banco-de-dados-relacionais
-Comparação entre Banco de Dados Relacional (RDBMS) e NoSQL, com site em HTML/CSS.
+Comparação entre Banco de Dados Relacional (RDBMS) e NoSQL, com site em HTML/CSS.                                                                                                  Consiste em apresentar as diferenças dos bancos de dados relacionais tradicionas para os bancos de dados não relacionais(Nosql) que vem sendo cada vez mais utilizado, nós abordaremos as especificações de cada um e mostraremos quando utilizar um e utilizar outro
