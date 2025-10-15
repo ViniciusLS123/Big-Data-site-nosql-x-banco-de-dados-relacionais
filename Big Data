@@ -1,184 +1,571 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comparação: Banco de Dados Relacional vs NoSQL</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Duelo de Bancos: SQL vs NoSQL</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background: #f5f7fa;
-            color: #333;
+        .gradient-text {
+            background: linear-gradient(90deg, #3b82f6 0%, #10b981 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
-        header {
-            background: linear-gradient(135deg, #0066cc, #00bfa6);
-            color: white;
-            text-align: center;
-            padding: 2rem;
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
-        header h1 {
-            margin: 0;
-        }
-        nav {
-            margin-top: 1rem;
-        }
-        nav a {
-            color: white;
-            margin: 0 1rem;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        nav a:hover {
-            text-decoration: underline;
-        }
-        section {
-            max-width: 1000px;
-            margin: 2rem auto;
-            padding: 1.5rem;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-        h2 {
-            color: #0066cc;
+        .img-placeholder {
+            background-color: #e5e7eb;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-        }
-        .card {
-            margin-bottom: 1.5rem;
-            padding: 1rem;
-            border-left: 5px solid #00bfa6;
-            background: #f9fdfc;
-            border-radius: 8px;
-        }
-        .comparacao table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1rem;
-        }
-        .comparacao th, .comparacao td {
-            border: 1px solid #ddd;
-            padding: 12px;
-            text-align: center;
-        }
-        .comparacao th {
-            background: #00bfa6;
-            color: white;
-        }
-        .comparacao tr:nth-child(even) {
-            background: #f2f9f8;
-        }
-        .principais-diferencas {
-            background: #e6f7ff;
-            padding: 1rem;
-            border-radius: 10px;
-            margin-top: 2rem;
-        }
-        .principais-diferencas ul {
-            list-style: none;
-            padding: 0;
-        }
-        .principais-diferencas li {
-            margin: 0.5rem 0;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        footer {
-            text-align: center;
-            padding: 1rem;
-            background: #0066cc;
-            color: white;
-            margin-top: 2rem;
+            justify-content: center;
+            color: #9ca3af;
+            font-weight: 500;
         }
     </style>
 </head>
-<body>
-    <header>
-        <h1><i class="fa-solid fa-database"></i> Banco de Dados Relacional vs <i class="fa-solid fa-cloud"></i> NoSQL</h1>
-        <nav>
-            <a href="#relacional">Relacional</a>
-            <a href="#nosql">NoSQL</a>
-            <a href="#comparacao">Comparação</a>
-            <a href="#diferencas">Diferenças</a>
-        </nav>
+<body class="bg-gray-50">
+    <div id="vanta-bg" class="fixed inset-0 -z-10 opacity-20"></div>
+    
+    <!-- Cabeçalho -->
+    <header class="py-12 px-4 sm:px-6 lg:px-8 bg-white/90 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4 gradient-text">Duelo de Bancos</h1>
+            <h2 class="text-2xl md:text-3xl text-gray-800 font-medium">SQL vs NoSQL: O Confronto Definitivo</h2>
+            <p class="mt-6 text-lg text-gray-600 max-w-3xl mx-auto">
+                Explore as diferenças fundamentais, vantagens e casos de uso ideal para cada tecnologia de banco de dados nesta comparação abrangente.
+            </p>
+            <div class="mt-8 flex justify-center gap-4 flex-wrap">
+                <a href="#relacional" class="px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition">
+                    Bancos Relacionais
+                </a>
+                <a href="#nosql" class="px-6 py-3 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition">
+                    NoSQL
+                </a>
+                <a href="#comparacao" class="px-6 py-3 bg-purple-600 text-white rounded-lg font-medium hover:bg-purple-700 transition">
+                    Comparação Direta
+                </a>
+                <a href="#hibrido" class="px-6 py-3 bg-yellow-600 text-white rounded-lg font-medium hover:bg-yellow-700 transition">
+                    Abordagem Híbrida
+                </a>
+            </div>
+        </div>
     </header>
 
-    <section id="relacional">
-        <h2><i class="fa-solid fa-database"></i> Banco de Dados Relacional (RDBMS)</h2>
-        <div class="card">
-            <p>Organiza e armazena informações em <b>tabelas</b> (linhas e colunas) com esquema rígido e relações usando chaves primárias e estrangeiras. Utiliza <b>SQL</b> para consultas. </p>
-            <p>Características principais: suporte a <b>ACID</b>, consistência imediata, ideal para sistemas financeiros e aplicações com dados fortemente relacionados.</p>
-            <p><b>Exemplos:</b> MySQL, PostgreSQL, SQL Server.</p>
+    <!-- Seção Bancos Relacionais -->
+    <section id="relacional" class="py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12">
+                <div class="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-4">
+                    <i data-feather="database" class="text-blue-600 w-8 h-8"></i>
+                </div>
+                <h2 class="text-3xl font-bold text-gray-900 mb-3">Bancos de Dados Relacionais</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">O poder tradicional para gerenciamento de dados estruturados desde os anos 1970</p>
+                <div class="w-20 h-1 bg-blue-600 mx-auto mt-4"></div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-10 items-center">
+                <div class="space-y-6">
+                    <div class="flex items-start space-x-4">
+                        <div class="flex-shrink-0 flex items-center justify-center w-12 h-12 bg-blue-100 rounded-lg">
+                            <i data-feather="grid" class="text-blue-600"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-medium text-gray-900">Organização Estruturada</h3>
+                            <p class="mt-1 text-gray-600">Os dados são armazenados em tabelas com linhas e colunas claramente definidas, aplicando integridade de dados rigorosa através de relacionamentos (um-para-um, um-para-muitos, muitos-para-muitos). O esquema é fixo no momento do design, tornando-o excelente para aplicações com requisitos de dados estáveis.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start space-x-4">
+                        <div class="flex-shrink-0 flex items-center justify-center w-12 h-12 bg-blue-100 rounded-lg">
+                            <i data-feather="shield" class="text-blue-600"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-medium text-gray-900">Princípios ACID</h3>
+                            <p class="mt-1 text-gray-600">Atomicidade (transações são tudo-ou-nada), Consistência (os dados permanecem válidos antes e depois das transações), Isolamento (transações concorrentes não interferem) e Durabilidade (transações concluídas persistem) garantem processamento de transações confiável. Isso torna os SGBDR ideais para sistemas financeiros.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start space-x-4">
+                        <div class="flex-shrink-0 flex items-center justify-center w-12 h-12 bg-blue-100 rounded-lg">
+                            <i data-feather="code" class="text-blue-600"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-medium text-gray-900">Padrão SQL</h3>
+                            <p class="mt-1 text-gray-600">Utiliza a Linguagem de Consulta Estruturada (SQL) para definir, manipular e consultar dados. O SQL fornece operações poderosas como junções complexas, agregações e subconsultas. A sintaxe padrão (com algumas variantes específicas do fornecedor) torna as habilidades transferíveis entre sistemas.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover transition">
+                    <div class="h-64 bg-blue-50 flex items-center justify-center">
+                        <div class="text-center p-4">
+                            <div class="text-blue-600 mb-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-blue-800">Modelo Relacional</h3>
+                            <p class="text-blue-600 mt-2">Tabelas, linhas e colunas com relacionamentos bem definidos</p>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-gray-900">Sistemas Populares</h3>
+                        <div class="flex flex-wrap gap-3">
+                            <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">MySQL</span>
+                            <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">PostgreSQL</span>
+                            <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">Oracle</span>
+                            <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">SQL Server</span>
+                            <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">SQLite</span>
+                        </div>
+                        <p class="mt-4 text-gray-600">Os bancos de dados relacionais dominam aplicações empresariais, particularmente para sistemas de processamento de transações (OLTP), software de contabilidade, sistemas de inventário e qualquer cenário que exija consultas complexas em várias entidades relacionadas. Eles são padronizados, bem compreendidos e suportados por ferramentas extensivas.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 bg-blue-50 rounded-xl p-6">
+                <h3 class="text-xl font-bold mb-4 text-blue-800">Casos de Sucesso com Bancos Relacionais</h3>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-white p-4 rounded-lg shadow">
+                        <h4 class="font-semibold text-blue-700">Sistemas Bancários</h4>
+                        <p class="text-sm text-gray-600 mt-2">Todo banco importante usa bancos de dados relacionais para garantir conformidade ACID para transações financeiras. A capacidade de manter consistência perfeita entre saldos de contas é não negociável.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow">
+                        <h4 class="font-semibold text-blue-700">Reservas Aéreas</h4>
+                        <p class="text-sm text-gray-600 mt-2">Quando você reserva um voo, bancos de dados relacionais garantem que as atribuições de assentos sejam únicas, voos não sejam superlotados e todos os sistemas mostrem disponibilidade consistente.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow">
+                        <h4 class="font-semibold text-blue-700">Registros de Saúde</h4>
+                        <p class="text-sm text-gray-600 mt-2">Registros de pacientes exigem integridade de dados rigorosa com relacionamentos complexos entre diagnósticos, tratamentos, medicamentos e provedores - perfeito para SGBDR.</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <section id="nosql">
-        <h2><i class="fa-solid fa-cloud"></i> Banco de Dados NoSQL</h2>
-        <div class="card">
-            <p>Não utiliza esquema fixo, permitindo armazenar dados <b>não estruturados ou semi-estruturados</b>. Suporta modelos como documento, chave-valor, grafo, colunar e em memória.</p>
-            <p>Focado em <b>escalabilidade horizontal</b> e <b>alta disponibilidade</b>, com consistência eventual. Indicado para grandes volumes de dados e sistemas distribuídos.</p>
-            <p><b>Exemplos:</b> MongoDB, Cassandra, Redis.</p>
+    <!-- Seção NoSQL -->
+    <section id="nosql" class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12">
+                <div class="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4">
+                    <i data-feather="layers" class="text-green-600 w-8 h-8"></i>
+                </div>
+                <h2 class="text-3xl font-bold text-gray-900 mb-3">Bancos de Dados NoSQL</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">A solução flexível e escalável para desafios modernos de dados</p>
+                <div class="w-20 h-1 bg-green-600 mx-auto mt-4"></div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-10 items-center">
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover transition order-1 md:order-2">
+                    <div class="h-64 bg-green-50 flex items-center justify-center">
+                        <div class="text-center p-4">
+                            <div class="text-green-600 mb-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-green-800">Modelos NoSQL</h3>
+                            <p class="text-green-600 mt-2">Documentos, chave-valor, colunas e grafos</p>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-gray-900">Principais Categorias</h3>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <h4 class="font-semibold text-green-700 mb-1">Documentos</h4>
+                                <div class="flex flex-wrap gap-1">
+                                    <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">MongoDB</span>
+                                    <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">CouchDB</span>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-green-700 mb-1">Chave-Valor</h4>
+                                <div class="flex flex-wrap gap-1">
+                                    <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">Redis</span>
+                                    <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">DynamoDB</span>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-green-700 mb-1">Colunas</h4>
+                                <div class="flex flex-wrap gap-1">
+                                    <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">Cassandra</span>
+                                    <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">HBase</span>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-green-700 mb-1">Grafos</h4>
+                                <div class="flex flex-wrap gap-1">
+                                    <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">Neo4j</span>
+                                    <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">ArangoDB</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="mt-4 text-gray-600">Sistemas NoSQL se destacam no tratamento de dados não estruturados ou semi-estruturados em escala massiva, particularmente para aplicações web, análise em tempo real e cenários onde o modelo de dados evolui rapidamente durante o desenvolvimento.</p>
+                    </div>
+                </div>
+                
+                <div class="space-y-6 order-2 md:order-1">
+                    <div class="flex items-start space-x-4">
+                        <div class="flex-shrink-0 flex items-center justify-center w-12 h-12 bg-green-100 rounded-lg">
+                            <i data-feather="box" class="text-green-600"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-medium text-gray-900">Flexibilidade de Esquema</h3>
+                            <p class="mt-1 text-gray-600">Bancos NoSQL geralmente têm esquemas dinâmicos que podem evoluir conforme os requisitos da aplicação mudam. Documentos podem conter campos diferentes, e novos campos podem ser adicionados sem exigir uma migração de esquema custosa. Isso os torna ideais para processos de desenvolvimento ágil.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start space-x-4">
+                        <div class="flex-shrink-0 flex items-center justify-center w-12 h-12 bg-green-100 rounded-lg">
+                            <i data-feather="server" class="text-green-600"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-medium text-gray-900">Escalabilidade Horizontal</h3>
+                            <p class="mt-1 text-gray-600">Projetados para escalar horizontalmente distribuindo dados por muitos servidores comuns em vez de escalar verticalmente (adicionando mais poder a um único servidor). Isso torna os bancos NoSQL particularmente adequados para implantações em nuvem e aplicações de big data onde o volume e velocidade de dados são altos.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start space-x-4">
+                        <div class="flex-shrink-0 flex items-center justify-center w-12 h-12 bg-green-100 rounded-lg">
+                            <i data-feather="zap" class="text-green-600"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-medium text-gray-900">Performance em Escala</h3>
+                            <p class="mt-1 text-gray-600">Otimizados para modelos de dados específicos e padrões de acesso que diferem do modelo relacional. Muitos sistemas NoSQL sacrificam algumas garantias de consistência (seguindo o teorema CAP) para alcançar maior disponibilidade e tolerância a partições, o que é aceitável para muitas aplicações modernas.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 bg-green-50 rounded-xl p-6">
+                <h3 class="text-xl font-bold mb-4 text-green-800">Casos de Sucesso com NoSQL</h3>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-white p-4 rounded-lg shadow">
+                        <h4 class="font-semibold text-green-700">Mídias Sociais</h4>
+                        <p class="text-sm text-gray-600 mt-2">Facebook, Twitter e Instagram usam NoSQL para lidar com bilhões de posts gerados por usuários com esquemas flexíveis que evoluem constantemente.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow">
+                        <h4 class="font-semibold text-green-700">E-commerce</h4>
+                        <p class="text-sm text-gray-600 mt-2">Amazon e eBay usam NoSQL para catálogos de produtos onde cada item tem diferentes atributos que mudam frequentemente.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow">
+                        <h4 class="font-semibold text-green-700">Sistemas IoT</h4>
+                        <p class="text-sm text-gray-600 mt-2">Redes de sensores geram volumes massivos de dados de séries temporais que bancos NoSQL como Cassandra lidam com eficiência.</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <section id="comparacao" class="comparacao">
-        <h2><i class="fa-solid fa-scale-balanced"></i> Comparação Rápida</h2>
-        <table>
-            <tr>
-                <th>Característica</th>
-                <th>RDBMS</th>
-                <th>NoSQL</th>
-            </tr>
-            <tr>
-                <td>Estrutura de Dados</td>
-                <td>Tabelas com esquema rígido</td>
-                <td>Modelos variados; sem esquema fixo</td>
-            </tr>
-            <tr>
-                <td>Consistência</td>
-                <td>Alta (ACID)</td>
-                <td>Eventual em geral</td>
-            </tr>
-            <tr>
-                <td>Escalabilidade</td>
-                <td>Vertical (tradicional)</td>
-                <td>Horizontal (natural)</td>
-            </tr>
-            <tr>
-                <td>Uso ideal</td>
-                <td>Transações complexas; dados relacionados</td>
-                <td>Grandes volumes; dados não estruturados</td>
-            </tr>
-            <tr>
-                <td>Linguagem de Consulta</td>
-                <td>SQL</td>
-                <td>Variada (APIs, JSON, etc.)</td>
-            </tr>
-            <tr>
-                <td>Flexibilidade de esquema</td>
-                <td>Baixa</td>
-                <td>Alta</td>
-            </tr>
-        </table>
+    <!-- Seção Comparação -->
+    <section id="comparacao" class="py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12">
+                <div class="inline-flex items-center justify-center w-16 h-16 bg-purple-100 rounded-full mb-4">
+                    <i data-feather="scale" class="text-purple-600 w-8 h-8"></i>
+                </div>
+                <h2 class="text-3xl font-bold text-gray-900 mb-3">Comparação Direta</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">Comparação detalhada entre bancos de dados relacionais e NoSQL</p>
+                <div class="w-20 h-1 bg-purple-600 mx-auto mt-4"></div>
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Característica</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-blue-600 uppercase tracking-wider">Relacional</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-green-600 uppercase tracking-wider">NoSQL</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-900">Modelo de Dados</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-600">Tabelas com linhas e colunas, esquema rígido</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-600">Documentos, chave-valor, colunas largas, grafos, esquema flexível</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-900">Linguagem de Consulta</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-600">SQL (padronizada)</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-600">Varia por produto (MongoDB Query Language, Cassandra CQL, etc.)</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-900">Modelo de Consistência</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-600">ACID - Consistência forte</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-600">BASE - Consistência eventual (tipicamente)</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-900">Escalabilidade</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-600">Vertical (escala com hardware mais poderoso)</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-600">Horizontal (escala adicionando mais servidores)</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-900">Mudanças de Esquema</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-600">Requer migrações de esquema, pode ser custoso</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-600">Flexível, pode evoluir dinamicamente sem downtime</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-900">Performance</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-600">Excelente para consultas complexas com múltiplas junções</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-600">Otimizado para padrões específicos, extremamente rápido para seu caso de uso</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-900">Transações</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-600">Transações ACID multi-registro com rollback complexo</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-600">Frequentemente de registro único (alguns suportam multi-documento)</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-900">Velocidade de Desenvolvimento</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-600">Requer design de esquema cuidadoso antecipadamente</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-600">Protótipos rápidos, bom para ambientes ágeis</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-900">Maturidade</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-600">40+ anos de refinamento, tecnologia comprovada</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-600">Tecnologia mais jovem (15-20 anos), em rápida evolução</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-900">Melhor Para</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-600">Dados estruturados, consultas complexas, sistemas transacionais</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-600">Dados não estruturados, alta escalabilidade, esquemas flexíveis</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="mt-12 bg-purple-50 rounded-xl p-6">
+                <h3 class="text-xl font-bold mb-4 text-purple-800">Teorema CAP Explicado</h3>
+                <p class="text-gray-600 mb-4">O teorema CAP afirma que um sistema distribuído pode fornecer simultaneamente apenas duas destas três garantias:</p>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-white p-4 rounded-lg shadow border-l-4 border-blue-600">
+                        <h4 class="font-semibold text-blue-700">Consistência</h4>
+                        <p class="text-sm text-gray-600 mt-2">Toda leitura recebe a escrita mais recente ou um erro (SGBDR priorizam isso)</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow border-l-4 border-green-600">
+                        <h4 class="font-semibold text-green-700">Disponibilidade</h4>
+                        <p class="text-sm text-gray-600 mt-2">Toda requisição recebe uma resposta não-erro, sem garantia da escrita mais recente (NoSQL frequentemente prioriza isso)</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow border-l-4 border-purple-600">
+                        <h4 class="font-semibold text-purple-700">Tolerância a Partições</h4>
+                        <p class="text-sm text-gray-600 mt-2">Sistema continua operando apesar de partições de rede entre nós (requerido para sistemas distribuídos)</p>
+                    </div>
+                </div>
+                <p class="mt-6 text-gray-600">Este tradeoff fundamental ajuda a explicar por que diferentes tecnologias de banco de dados fazem escolhas arquiteturais diferentes.</p>
+            </div>
+        </div>
     </section>
 
-    <section id="diferencas" class="principais-diferencas">
-        <h2><i class="fa-solid fa-lightbulb"></i> Principais Diferenças</h2>
-        <ul>
-            <li><i class="fa-solid fa-table"></i> RDBMS usa tabelas rígidas, NoSQL usa modelos flexíveis.</li>
-            <li><i class="fa-solid fa-lock"></i> RDBMS garante alta consistência (ACID), NoSQL trabalha com consistência eventual.</li>
-            <li><i class="fa-solid fa-chart-line"></i> RDBMS escala verticalmente; NoSQL escala horizontalmente.</li>
-            <li><i class="fa-solid fa-briefcase"></i> RDBMS é ideal para bancos e sistemas críticos; NoSQL para big data e aplicações web/móveis.</li>
-        </ul>
+    <!-- Quando Usar Cada Um -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12">
+                <div class="inline-flex items-center justify-center w-16 h-16 bg-yellow-100 rounded-full mb-4">
+                    <i data-feather="alert-circle" class="text-yellow-600 w-8 h-8"></i>
+                </div>
+                <h2 class="text-3xl font-bold text-gray-900 mb-3">Guia de Decisão: Quando Usar Cada Um?</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">Diretrizes práticas para escolher entre bancos relacionais e NoSQL</p>
+                <div class="w-20 h-1 bg-yellow-600 mx-auto mt-4"></div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-8 rounded-xl shadow-lg card-hover transition border-l-4 border-blue-600">
+                    <div class="flex items-center mb-4">
+                        <div class="flex-shrink-0 flex items-center justify-center w-12 h-12 bg-blue-100 rounded-lg">
+                            <i data-feather="check-circle" class="text-blue-600"></i>
+                        </div>
+                        <h3 class="ml-4 text-xl font-bold text-gray-900">Escolha Relacional Quando:</h3>
+                    </div>
+                    <ul class="space-y-3 text-gray-600">
+                        <li class="flex items-start">
+                            <i data-feather="check" class="flex-shrink-0 w-5 h-5 text-blue-600 mt-0.5 mr-2"></i>
+                            <span><strong>Integridade de dados é crítica</strong> - Bancos, sistemas financeiros e aplicações onde cada transação deve ser perfeitamente precisa</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-feather="check" class="flex-shrink-0 w-5 h-5 text-blue-600 mt-0.5 mr-2"></i>
+                            <span><strong>Consultas complexas são necessárias</strong> - Sistemas de relatórios que exigem junções multi-tabela, agregações e subconsultas</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-feather="check" class="flex-shrink-0 w-5 h-5 text-blue-600 mt-0.5 mr-2"></i>
+                            <span><strong>Relacionamentos de dados são bem definidos</strong> - Aplicações com relacionamentos claros de entidades que não mudam frequentemente</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-feather="check" class="flex-shrink-0 w-5 h-5 text-blue-600 mt-0.5 mr-2"></i>
+                            <span><strong>Você precisa de segurança/regulação rigorosa</strong> - Indústrias com requisitos regulatórios frequentemente exigem propriedades ACID</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-feather="check" class="flex-shrink-0 w-5 h-5 text-blue-600 mt-0.5 mr-2"></i>
+                            <span><strong>Ecossistema existente é importante</strong> - Quando precisa integrar com sistemas legados ou ferramentas de negócios padrão</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white p-8 rounded-xl shadow-lg card-hover transition border-l-4 border-green-600">
+                    <div class="flex items-center mb-4">
+                        <div class="flex-shrink-0 flex items-center justify-center w-12 h-12 bg-green-100 rounded-lg">
+                            <i data-feather="check-circle" class="text-green-600"></i>
+                        </div>
+                        <h3 class="ml-4 text-xl font-bold text-gray-900">Escolha NoSQL Quando:</h3>
+                    </div>
+                    <ul class="space-y-3 text-gray-600">
+                        <li class="flex items-start">
+                            <i data-feather="check" class="flex-shrink-0 w-5 h-5 text-green-600 mt-0.5 mr-2"></i>
+                            <span><strong>Você precisa escalar rapidamente</strong> - Aplicações web com crescimento imprevisível que precisam de escalabilidade horizontal</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-feather="check" class="flex-shrink-0 w-5 h-5 text-green-600 mt-0.5 mr-2"></i>
+                            <span><strong>Dados são não estruturados/variados</strong> - Gerenciamento de conteúdo, perfis de usuário ou dados de sensores IoT onde cada registro pode ser diferente</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-feather="check" class="flex-shrink-0 w-5 h-5 text-green-600 mt-0.5 mr-2"></i>
+                            <span><strong>Velocidade de desenvolvimento é crucial</strong> - Prototipagem ou projetos ágeis onde modelos de dados evoluem constantemente</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-feather="check" class="flex-shrink-0 w-5 h-5 text-green-600 mt-0.5 mr-2"></i>
+                            <span><strong>Alta vazão de escrita necessária</strong> - Aplicações como logging, análise ou processamento de dados em tempo real</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-feather="check" class="flex-shrink-0 w-5 h-5 text-green-600 mt-0.5 mr-2"></i>
+                            <span><strong>Distribuição geográfica</strong> - Aplicações globais que precisam de dados replicados entre regiões com baixa latência</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <footer>
-        <p>Projeto de Comparação: RDBMS vs NoSQL - 2025</p>
-    </footer>
+    <!-- Abordagem Híbrida -->
+    <section id="hibrido" class="py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12">
+                <div class="inline-flex items-center justify-center w-16 h-16 bg-indigo-100 rounded-full mb-4">
+                    <i data-feather="git-merge" class="text-indigo-600 w-8 h-8"></i>
+                </div>
+                <h2 class="text-3xl font-bold text-gray-900 mb-3">A Abordagem Híbrida</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">Muitas aplicações modernas usam ambos tipos de bancos estrategicamente</p>
+                <div class="w-20 h-1 bg-indigo-600 mx-auto mt-4"></div>
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-lg p-8">
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h3 class="text-xl font-bold mb-4 text-gray-900">Persistência Poliglota</h3>
+                        <p class="text-gray-600 mb-6">
+                            Persistência poliglota é a prática de usar diferentes tecnologias de armazenamento de dados para lidar com diferentes necessidades dentro de um único sistema. 
+                            Em vez de tentar forçar todos os dados em um modelo de banco de dados, aplicações podem aproveitar os pontos fortes de cada banco.
+                        </p>
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 flex items-center justify-center w-8 h-8 bg-indigo-100 rounded-full mr-3">
+                                    <i data-feather="check" class="text-indigo-600 w-4 h-4"></i>
+                                </div>
+                                <p class="text-gray-600">Use <strong>relacional</strong> para dados transacionais (pedidos, pagamentos)</p>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 flex items-center justify-center w-8 h-8 bg-indigo-100 rounded-full mr-3">
+                                    <i data-feather="check" class="text-indigo-600 w-4 h-4"></i>
+                                </div>
+                                <p class="text-gray-600">Use <strong>documento</strong> para conteúdo flexível (catálogos de produtos, perfis de usuário)</p>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 flex items-center justify-center w-8 h-8 bg-indigo-100 rounded-full mr-3">
+                                    <i data-feather="check" class="text-indigo-600 w-4 h-4"></i>
+                                </div>
+                                <p class="text-gray-600">Use <strong>chave-valor</strong> para cache e sessões</p>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 flex items-center justify-center w-8 h-8 bg-indigo-100 rounded-full mr-3">
+                                    <i data-feather="check" class="text-indigo-600 w-4 h-4"></i>
+                                </div>
+                                <p class="text-gray-600">Use <strong>grafo</strong> para dados com muitos relacionamentos (redes sociais, recomendações)</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-indigo-50 rounded-lg p-6">
+                        <h4 class="font-semibold text-indigo-800 mb-3">Exemplo de Arquitetura</h4>
+                        <div class="h-64 bg-indigo-100 flex items-center justify-center rounded-lg">
+                            <div class="text-center p-4">
+                                <div class="text-indigo-600 mb-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+                                    </svg>
+                                </div>
+                                <h3 class="text-xl font-bold text-indigo-800">Arquitetura Híbrida</h3>
+                                <p class="text-indigo-600 mt-2">Combinando múltiplos tipos de bancos de dados</p>
+                            </div>
+                        </div>
+                        <p class="mt-4 text-sm text-indigo-700">
+                            Plataformas modernas de e-commerce frequentemente usam PostgreSQL para dados de cliente/pedidos (relacional), 
+                            MongoDB para catálogos de produtos (documento), Redis para cache (chave-valor), e 
+                            Neo4j para motores de recomendação (grafo).
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Conclusão -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-3xl mx-auto text-center">
+            <div class="inline-flex items-center justify-center w-16 h-16 bg-purple-100 rounded-full mb-4">
+                <i data-feather="award" class="text-purple-600 w-8 h-8"></i>
+            </div>
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">Recomendações Finais</h2>
+            <div class="prose prose-lg text-gray-600 mx-auto">
+                <p>
+                    Após examinar ambos paradigmas de bancos de dados, aqui estão nossas recomendações chave:
+                </p>
+                <div class="my-8 space-y-6">
+                    <div class="p-6 bg-white rounded-xl shadow border-l-4 border-blue-600 text-left">
+                        <h3 class="text-xl font-bold text-blue-800 mb-3">Comece com Relacional Se...</h3>
+                        <p class="text-gray-600">Você está construindo uma aplicação empresarial tradicional com requisitos de dados bem definidos, ou quando integridade de dados e consultas complexas são críticas. A maturidade, ferramentas e familiaridade dos desenvolvedores com sistemas relacionais os tornam a escolha padrão mais segura para a maioria das aplicações de negócios.</p>
+                    </div>
+                    <div class="p-6 bg-white rounded-xl shadow border-l-4 border-green-600 text-left">
+                        <h3 class="text-xl font-bold text-green-800 mb-3">Considere NoSQL Quando...</h3>
+                        <p class="text-gray-600">Você está lidando com escala massiva, dados não estruturados ou requisitos em rápida evolução onde a flexibilidade e escalabilidade horizontal do NoSQL fornecem vantagens claras. Particularmente valioso para aplicações em escala web, sistemas em tempo real e gerenciamento de conteúdo.</p>
+                    </div>
+                    <div class="p-6 bg-white rounded-xl shadow border-l-4 border-purple-600 text-left">
+                        <h3 class="text-xl font-bold text-purple-800 mb-3">Abordagem Híbrida Vence</h3>
+                        <p class="text-gray-600">Para aplicações complexas, considere usar ambos. Muitos sistemas bem-sucedidos usam bancos relacionais para seu "sistema de registro" enquanto empregam soluções NoSQL para casos de uso específicos onde eles se destacam (cache, análise, armazenamento de conteúdo). Esta abordagem de persistência poliglota permite que você aproveite o melhor dos dois mundos.</p>
+                    </div>
+                </div>
+                <p class="font-medium text-lg mt-8">
+                    O cenário de bancos de dados continua evoluindo, com tecnologias NewSQL e serviços de banco de dados gerenciados em nuvem 
+                    borrando as linhas entre estas categorias. Seja qual for sua escolha, garanta que ela se alinhe com os 
+                    requisitos específicos de sua aplicação em vez de seguir tendências cegamente.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Inicializar fundo Vanta.js
+        VANTA.NET({
+            el: "#vanta-bg",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            color: 0x3b82f6,
+            backgroundColor: 0xf8fafc,
+            points: 12.00,
+            maxDistance: 22.00,
+            spacing: 18.00
+        });
+
+        // Inicializar ícones feather
+        feather.replace();
+    </script>
 </body>
 </html>
+
